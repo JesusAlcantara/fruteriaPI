@@ -150,7 +150,7 @@
 										<tr>
 											<th th:text=${producto.nombre}></th>
 											<th th:text=${producto.precio}></th>
-											<th th:text=${producto.foto}></th>
+											<th><img th:src="@{'/img/' + ${producto.foto}}" style="max-width:15%" th:alt="${producto.foto}"/></th>
 											<th th:text=${producto.cantidad}></th>
 											<th th:text=${producto.categoria.nombre}></th>
 											<th>
@@ -173,10 +173,10 @@
 									                        <span aria-hidden="true">x</span>
 									                    </button>
 									                </div>
-									                <div class="modal-body">¿Desea eliminar el producto?</div>
+									                <div class="modal-body">&iquest;Desea eliminar el producto?</div>
 									                <div class="modal-footer">
 									                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-									                    <a th:href="@{/inicio/listAllProductos/delete/} + ${producto.id}" method="post">
+									                    <a th:href="@{/inicio/listProductosEmpleado/delete/} + ${producto.id}" method="post">
 									                    	<button class="btn btn-primary">Confirmar</button>
 									                    </a>
 									                </div>

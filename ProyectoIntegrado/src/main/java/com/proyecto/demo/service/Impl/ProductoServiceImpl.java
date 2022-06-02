@@ -13,6 +13,7 @@ import com.proyecto.demo.entity.Categoria;
 import com.proyecto.demo.entity.Producto;
 import com.proyecto.demo.entity.Usuario;
 import com.proyecto.demo.model.ProductoModel;
+import com.proyecto.demo.model.UsuarioModel;
 import com.proyecto.demo.repository.ProductoRepository;
 import com.proyecto.demo.service.ProductoService;
 
@@ -46,7 +47,11 @@ public class ProductoServiceImpl implements ProductoService{
 
 	@Override
 	public ProductoModel findProducto(long id) {
-		return transform(productoRepository.findById(id));
+		if(productoRepository.findById(id).orElse(null)==null) {
+			return null;
+		}
+		else
+			return transform(productoRepository.findById(id).orElse(null));
 	}
 
 	@Override

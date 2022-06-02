@@ -149,6 +149,7 @@
 											<th>Precio</th>
 											<th>Foto</th>
 											<th>Cantidad</th>
+											<th>Empleado</th>
 											<th>Acciones</th>
 										</tr>
 									</thead>
@@ -156,8 +157,9 @@
 										<tr>
 											<th th:text=${producto.nombre}></th>
 											<th th:text=${producto.precio}></th>
-											<th th:text=${producto.foto}></th>
+											<th><img th:src="@{'/img/' + ${producto.foto}}" style="max-width:15%" th:alt="${producto.foto}"/></th>
 											<th th:text=${producto.cantidad}></th>
+											<th th:text="${producto.usuario.nombre} + ' ' + ${producto.usuario.apellidos}"></th>
 											<th>
 												<a data-toggle="modal" data-target="#deleteModal">
 												<button type="button" class="btn btn-primary">Eliminar</button>

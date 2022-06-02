@@ -43,7 +43,11 @@ public class CategoriaServiceImpl implements CategoriaService{
 
 	@Override
 	public CategoriaModel findCategoria(long id) {
-		return transform(categoriaRepository.findById(id));
+		if(categoriaRepository.findById(id).orElse(null)==null) {
+			return null;
+		}
+		else
+			return transform(categoriaRepository.findById(id).orElse(null));
 	}
 
 	@Override

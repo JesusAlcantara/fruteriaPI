@@ -57,11 +57,13 @@ public class CategoriaController {
 	@PostMapping("/listCategorias/addCategoria")
 	public String addCategoria(@ModelAttribute("categoria") CategoriaModel categoriaModel, RedirectAttributes flash) {
 		if(categoriaService.findCategoria(categoriaModel.getId()) == null) {
+			System.out.println(categoriaModel.toString());
 			try {
 			categoriaService.addCategoria(categoriaModel);
 			flash.addFlashAttribute("success", "Categoría creada correctamente.");
 			}
 			catch (Exception SQLIntegrityConstraintViolationException) {
+				System.out.println("Error");
 				flash.addFlashAttribute("error", "Error a la hora de registrar la categoría.");
 				return "redirect:/inicio/listCategorias/formCategoria";
 			}
@@ -71,5 +73,17 @@ public class CategoriaController {
 			flash.addFlashAttribute("success", "Categoría editada correctamente.");
 		}
 		return "redirect:/inicio/listCategorias";
+	}
+	
+	// Borrado de una categoría
+	@PreAuthorize("hasAuthority('ROL_EMPLEADO')")
+	@GetMapping("/listCategorias/delete/{id}")
+	public String deleteCategoria(@PathVariable long id, RedirectAttributes flash) {
+		if (categoriaService.removeCategoria(id) == 0) {
+			flash.addFlashAttribute("success", "Categoría eliminada correctamente.");
+		} else
+			flash.addFlashAttribute("error", "No se ha podido eliminar la categoría.");
+		
+		return "redirect:/inicio/listProductosEmpleado";
 	}
 }

@@ -11,19 +11,17 @@ public class ProductoModel {
 	private float precio;
 	private Categoria categoria;
 	private Usuario usuario;
-	private Pedido pedido;
 	private String foto;
 	private int cantidad;
 	
 	public ProductoModel() {}
 	
-	public ProductoModel(long id, String nombre, float precio, Categoria categoria, Usuario usuario, Pedido pedido, String foto, int cantidad) {
+	public ProductoModel(long id, String nombre, float precio, Categoria categoria, Usuario usuario, String foto, int cantidad) {
 		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
 		this.categoria = categoria;
 		this.usuario = usuario;
-		this.pedido = pedido;
 		this.foto = foto;
 		this.cantidad = cantidad;
 	}
@@ -84,18 +82,10 @@ public class ProductoModel {
 		this.usuario = usuario;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
-
 	@Override
 	public String toString() {
 		return "ProductoModel [id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", categoria=" + categoria
-				+ ", foto=" + foto + ", cantidad=" + cantidad + "]";
+				+ ", foto=" + foto + ", cantidad=" + cantidad + ", empleado=" + usuario + "]";
 	}
 	
 }

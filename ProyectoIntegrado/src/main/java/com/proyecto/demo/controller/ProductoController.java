@@ -1,9 +1,5 @@
 package com.proyecto.demo.controller;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +25,7 @@ import com.proyecto.demo.model.ProductoModel;
 import com.proyecto.demo.model.UsuarioModel;
 import com.proyecto.demo.service.Impl.CategoriaServiceImpl;
 import com.proyecto.demo.service.Impl.ProductoServiceImpl;
+import com.proyecto.demo.service.Impl.UploadFileService;
 import com.proyecto.demo.service.Impl.UsuarioServiceImpl;
 
 @RequestMapping("/inicio")
@@ -46,6 +43,9 @@ public class ProductoController {
 	@Autowired
 	@Qualifier("usuarioService")
 	private UsuarioServiceImpl usuarioService;
+	
+	@Autowired
+	private UploadFileService upload;
 	
 	private static final String PRODUCTOS_VIEW = "listAllProductos";
 	private static final String PROD_EMP_VIEW = "listProductosEmpleado";
@@ -95,12 +95,20 @@ public class ProductoController {
 	@PreAuthorize("hasAuthority('ROL_EMPLEADO')")
 	@GetMapping("/listProductosEmpleado/delete/{id}")
 	public String deleteProducto(@PathVariable long id, RedirectAttributes flash) {
+		
+		ProductoModel p = new ProductoModel();
+		p = productoService.findProducto(id);
+		
+		if(!p.getFoto().equals("default.jpg")) {
+			upload.deleteImage(p.getFoto());
+		}
+		
 		if (productoService.removeProducto(id) == 0) {
 			flash.addFlashAttribute("success", "Producto eliminado correctamente.");
 		} else
 			flash.addFlashAttribute("error", "No se ha podido eliminar el producto.");
 		
-		return "redirect:/inicio/listProductos";
+		return "redirect:/inicio/listProductosEmpleado";
 	}
 	
 	// Creación de un producto o modificación de tal
@@ -116,30 +124,16 @@ public class ProductoController {
 		UsuarioModel usuarioMode = new UsuarioModel();
 		usuarioMode = usuarioService.findUsuarioByEmail(empleado);
 		productoModel.setUsuario(usuarioService.transform(usuarioMode));
-		
+				
 		if(productoService.findProducto(productoModel.getId()) == null) {
-			if(!file.isEmpty()) {
-				Path directorioImagenes=Paths.get("src//main//resources//static//img");
-				String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-				try {
-					byte[] bytesImg = file.getBytes();
-					Path rutaCompleta = Paths.get(rutaAbsoluta + "//"+file.getOriginalFilename());
-					Files.write(rutaCompleta, bytesImg);
-					
-					productoModel.setFoto(file.getOriginalFilename());
-					
-				}catch(IOException e) {
-					
-					e.printStackTrace();
-				}
+			String nombreImagen = upload.saveImage(file);
+			productoModel.setFoto(nombreImagen);
+			if(file.isEmpty()) {
+				ProductoModel p = new ProductoModel();
+				p = productoService.findProducto(productoModel.getId());
+				productoModel.setFoto(p.getFoto());
 			}
-			else {
-				try {
-					productoModel.setFoto(productoService.findProducto(productoModel.getId()).getFoto());
-				}catch(Exception IllegalArgumentException) {
-					productoModel.setFoto("default.jpeg");
-				}
-			}
+		
 			try {
 				productoService.addProducto(productoModel);
 				flash.addFlashAttribute("success", "Producto creado correctamente.");
@@ -150,9 +144,22 @@ public class ProductoController {
 			}
 		}
 		else {
+			String nombreImagen = upload.saveImage(file);
+			productoModel.setFoto(nombreImagen);
+			if(file.isEmpty()) {
+				ProductoModel p = new ProductoModel();
+				p = productoService.findProducto(productoModel.getId());
+				productoModel.setFoto(p.getFoto());
+			}
+			
+			if(!productoModel.getFoto().equals("default.jpg")) {
+				upload.deleteImage(productoModel.getFoto());
+			}
 			productoService.addProducto(productoModel);
 			flash.addFlashAttribute("success", "Producto editado correctamente.");
 		}
+		
+		
 		return "redirect:/inicio/listProductosEmpleado";
 	}
 }
