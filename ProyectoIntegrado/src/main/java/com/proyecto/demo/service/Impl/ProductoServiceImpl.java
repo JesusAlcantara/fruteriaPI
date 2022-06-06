@@ -71,7 +71,7 @@ public class ProductoServiceImpl implements ProductoService{
 		return modelMapper.map(producto, ProductoModel.class);
 	}
 	
-	public ArrayList<ProductoModel> findProductoByCategoria(Categoria categoria) {
+	public ArrayList<ProductoModel> findProductoByCategoria(long categoria) {
 		ArrayList <com.proyecto.demo.entity.Producto> productos = productoRepository.findByCategoria(categoria);
 		ModelMapper modelMapper = new ModelMapper();
 		ArrayList<ProductoModel> productos2=new ArrayList<>();

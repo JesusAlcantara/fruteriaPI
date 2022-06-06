@@ -16,11 +16,14 @@ public class UsuarioModel {
 	private String telefono;
 	private List<Pedido> pedidos = new ArrayList<>();
 	private int activo;
+	private String token;
 
 	public UsuarioModel() {
 	}
 
-	public UsuarioModel(long id, String nombre, String apellidos, String email, String password, String rol, String telefono, List<Pedido> pedidos, int activo) {
+	public UsuarioModel(long id, String nombre, String apellidos, String email, 
+			String password, String rol, String telefono, List<Pedido> pedidos, 
+			int activo, String token) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -30,6 +33,7 @@ public class UsuarioModel {
 		this.telefono = telefono;
 		this.pedidos = pedidos;
 		this.activo = activo;
+		this.token = token;
 	}
 
 	public long getId() {
@@ -110,10 +114,18 @@ public class UsuarioModel {
 		this.activo = activo;
 	}
 
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	@Override
 	public String toString() {
 		return "UsuarioModel [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", email=" + email
-				+ ", rol=" + rol + ", telefono=" + telefono + "]";
+				+ ", rol=" + rol + ", telefono=" + telefono + ", token=" + token + "]";
 	}
 	
 	

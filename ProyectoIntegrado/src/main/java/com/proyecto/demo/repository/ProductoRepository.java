@@ -13,7 +13,6 @@ import com.proyecto.demo.entity.Usuario;
 @Repository("productoRepository")
 public interface ProductoRepository extends JpaRepository<Producto, Serializable>{
 
-	public abstract ArrayList<Producto> findByCategoria(Categoria categoria);
-	public abstract ArrayList<Producto> findByUsuario(Usuario usuario);
-	
+	public abstract ArrayList<Producto> findByCategoria(long id);
+	public abstract ArrayList<Producto> findByUsuario(Usuario usuario);	
 }

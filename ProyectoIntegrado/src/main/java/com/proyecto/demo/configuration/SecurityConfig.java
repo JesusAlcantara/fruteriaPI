@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -29,16 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public void configure(HttpSecurity http) throws Exception {
 		http
 		.csrf().disable()
+		.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 		.authorizeRequests()
-				/*.regexMatchers("/inicio/listAlumnos").hasAuthority("ROL_ADMIN")
-				.regexMatchers("/inicio/inicioAdmin").hasAuthority("ROL_ADMIN")
-				.regexMatchers("/inicio/listCiclos").hasAuthority("ROL_ADMIN")
-				.regexMatchers("/inicio/listRRHH").hasAuthority("ROL_ADMIN")
-				.regexMatchers("/inicio/listNoticias").hasAuthority("ROL_ADMIN")
-				.regexMatchers("/inicio/miPerfilAlumno").hasAuthority("ROL_ALUMNO")
-				.regexMatchers("/inicio/miPerfilRRHH").hasAuthority("ROL_RRHH")/*/
-				.antMatchers("/", "/imgs/**", "/photos/**", "/auth/**", "/css/**", "/inicio", "/files/**")
-				.permitAll()
+				.antMatchers("/", "/imgs/**", "/photos/**", "/auth/**", "/css/**", "/inicio", "/files/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/api/**").permitAll()
+				.antMatchers(HttpMethod.PUT, "/api/**").permitAll()
+				.antMatchers(HttpMethod.DELETE, "/api/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/login").permitAll()
 			.anyRequest()
 				.permitAll()
 			.and()

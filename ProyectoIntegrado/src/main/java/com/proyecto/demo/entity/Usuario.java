@@ -35,13 +35,15 @@ public class Usuario {
 
 	private String telefono;
 	
+	private String token;
+	
 	@OneToMany(mappedBy = "usuario", orphanRemoval = true)
 	private List<Pedido> pedidos = new ArrayList<>();
 
 	public Usuario() {}
 
 	public Usuario(long id, String nombre, String apellidos, String email, @Size(max = 100) String password, String rol,
-			String telefono, List<Pedido> pedidos, int activo) {
+			String telefono, List<Pedido> pedidos, int activo, String token) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -50,7 +52,8 @@ public class Usuario {
 		this.rol = rol;
 		this.telefono = telefono;
 		this.pedidos = pedidos;
-		this.activo = activo;	
+		this.activo = activo;
+		this.token = token;
 	}
 
 
@@ -125,6 +128,14 @@ public class Usuario {
 
 	public void setActivo(int activo) {
 		this.activo = activo;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	/*

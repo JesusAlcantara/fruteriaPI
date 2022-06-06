@@ -12,14 +12,19 @@ public class PedidoModel {
 	private Usuario usuario;
 	private List<Producto> productos;
 	private Date fecha_pedido;
+	private String valoracion;
+	private boolean entrega;
 	
 	public PedidoModel() {}
 	
-	public PedidoModel(long id, Usuario usuario, List<Producto> productos, Date fecha_pedido) {
+	public PedidoModel(long id, Usuario usuario, List<Producto> productos, Date fecha_pedido,
+			String valoracion, boolean entrega) {
 		this.id = id;
 		this.usuario = usuario;
 		this.productos = productos;
 		this.fecha_pedido = fecha_pedido;
+		this.valoracion = valoracion;
+		this.entrega = entrega;
 	}
 
 	public long getId() {
@@ -52,6 +57,22 @@ public class PedidoModel {
 
 	public void setFecha_pedido(Date fecha_pedido) {
 		this.fecha_pedido = fecha_pedido;
+	}
+
+	public String getValoracion() {
+		return valoracion;
+	}
+
+	public void setValoracion(String valoracion) {
+		this.valoracion = valoracion;
+	}
+
+	public boolean isEntrega() {
+		return entrega;
+	}
+
+	public void setEntrega(boolean entrega) {
+		this.entrega = entrega;
 	}
 
 	@Override
