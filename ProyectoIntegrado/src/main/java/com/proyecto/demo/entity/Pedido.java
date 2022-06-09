@@ -35,6 +35,8 @@ public class Pedido {
 	@JsonFormat(pattern = "ddMMyyyy")
 	private Date fecha_entrega;
 	
+	private String direccion;
+	
 	private String valoracion;
 	
 	private float precioTotal;
@@ -44,13 +46,14 @@ public class Pedido {
 	public Pedido() {}
 
 	public Pedido(long id, Usuario usuario, List<Producto> productos, Date fecha_pedido,
-			Date fecha_entrega, String valoracion, float precioTotal, int entrega) {
+			Date fecha_entrega, String valoracion, String direccion, float precioTotal, int entrega) {
 		this.id = id;
 		this.usuario = usuario;
 		this.productos = productos;
 		this.fecha_pedido = fecha_pedido;
 		this.fecha_entrega = fecha_entrega;
 		this.valoracion = valoracion;
+		this.direccion = direccion;
 		this.precioTotal = precioTotal;
 		this.entrega = entrega;
 	}
@@ -101,6 +104,14 @@ public class Pedido {
 
 	public void setValoracion(String valoracion) {
 		this.valoracion = valoracion;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	public float getPrecioTotal() {

@@ -14,19 +14,21 @@ public class PedidoModel {
 	private Date fecha_pedido;
 	private Date fecha_entrega;
 	private String valoracion;
+	private String direccion;
 	private float precioTotal;
 	private int entrega;
 	
 	public PedidoModel() {}
 	
 	public PedidoModel(long id, Usuario usuario, List<Producto> productos, Date fecha_pedido,
-			Date fecha_entrega, String valoracion, float precioTotal, int entrega) {
+			Date fecha_entrega, String valoracion, String direccion, float precioTotal, int entrega) {
 		this.id = id;
 		this.usuario = usuario;
 		this.productos = productos;
 		this.fecha_pedido = fecha_pedido;
 		this.fecha_entrega = fecha_entrega;
 		this.valoracion = valoracion;
+		this.direccion = direccion;
 		this.precioTotal = precioTotal;
 		this.entrega = entrega;
 	}
@@ -77,6 +79,14 @@ public class PedidoModel {
 
 	public void setValoracion(String valoracion) {
 		this.valoracion = valoracion;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 	public float getPrecioTotal() {
