@@ -7,11 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,15 +33,7 @@ public class RestLogin {
 	
 	@PostMapping("/login")
 	public UsuarioModel login(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password) {
-		Authentication authentication = 
-				authenticationManager.authenticate(
-						new UsernamePasswordAuthenticationToken(email,password));
-		
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String token = getJWTToken(email);
 		UsuarioModel usuarioMode = usuarioService.findUsuarioByEmail(email);
-		usuarioMode.setToken(token);
-		usuarioService.addUsuario(usuarioMode);
 		return usuarioMode;
 	}
 	

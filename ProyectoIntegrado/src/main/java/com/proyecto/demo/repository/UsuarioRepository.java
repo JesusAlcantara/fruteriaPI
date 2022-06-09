@@ -13,4 +13,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Serializable>{
 	
 	public abstract Usuario findByEmail(String email);
 	public abstract ArrayList<Usuario> findByRol(String rol);
+	public abstract Usuario findByEmailAndPassword(String email, String password);
 }

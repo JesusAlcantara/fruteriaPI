@@ -12,6 +12,7 @@ public class UsuarioModel {
 	private String apellidos;
 	private String email;
 	private String password;
+	private String c_password;
 	private String rol;
 	private String telefono;
 	private List<Pedido> pedidos = new ArrayList<>();
@@ -22,13 +23,14 @@ public class UsuarioModel {
 	}
 
 	public UsuarioModel(long id, String nombre, String apellidos, String email, 
-			String password, String rol, String telefono, List<Pedido> pedidos, 
+			String password, String c_password, String rol, String telefono, List<Pedido> pedidos, 
 			int activo, String token) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
 		this.password = password;
+		this.c_password = password;
 		this.rol = rol;
 		this.telefono = telefono;
 		this.pedidos = pedidos;
@@ -74,6 +76,14 @@ public class UsuarioModel {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getC_password() {
+		return c_password;
+	}
+
+	public void setC_password(String c_password) {
+		this.c_password = c_password;
 	}
 
 	public String getRol() {

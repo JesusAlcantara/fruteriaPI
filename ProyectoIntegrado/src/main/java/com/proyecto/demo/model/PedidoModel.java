@@ -12,18 +12,22 @@ public class PedidoModel {
 	private Usuario usuario;
 	private List<Producto> productos;
 	private Date fecha_pedido;
+	private Date fecha_entrega;
 	private String valoracion;
-	private boolean entrega;
+	private float precioTotal;
+	private int entrega;
 	
 	public PedidoModel() {}
 	
 	public PedidoModel(long id, Usuario usuario, List<Producto> productos, Date fecha_pedido,
-			String valoracion, boolean entrega) {
+			Date fecha_entrega, String valoracion, float precioTotal, int entrega) {
 		this.id = id;
 		this.usuario = usuario;
 		this.productos = productos;
 		this.fecha_pedido = fecha_pedido;
+		this.fecha_entrega = fecha_entrega;
 		this.valoracion = valoracion;
+		this.precioTotal = precioTotal;
 		this.entrega = entrega;
 	}
 
@@ -59,6 +63,14 @@ public class PedidoModel {
 		this.fecha_pedido = fecha_pedido;
 	}
 
+	public Date getFecha_entrega() {
+		return fecha_entrega;
+	}
+
+	public void setFecha_entrega(Date fecha_entrega) {
+		this.fecha_entrega = fecha_entrega;
+	}
+
 	public String getValoracion() {
 		return valoracion;
 	}
@@ -67,11 +79,19 @@ public class PedidoModel {
 		this.valoracion = valoracion;
 	}
 
-	public boolean isEntrega() {
+	public float getPrecioTotal() {
+		return precioTotal;
+	}
+
+	public void setPrecioTotal(float precioTotal) {
+		this.precioTotal = precioTotal;
+	}
+
+	public int getEntrega() {
 		return entrega;
 	}
 
-	public void setEntrega(boolean entrega) {
+	public void setEntrega(int entrega) {
 		this.entrega = entrega;
 	}
 

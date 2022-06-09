@@ -111,6 +111,11 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 		
 	}
 	
+	public UsuarioModel findUsuarioByEmailAndPassword(String email, String password) {
+		com.proyecto.demo.entity.Usuario usuario = usuarioRepository.findByEmailAndPassword(email, password);
+		return transform(usuario);
+	}
+	
 	/*
 	
 	public ArrayList<UsuarioModel> findUsuarioByOferta(long oferta) {

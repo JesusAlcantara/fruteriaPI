@@ -74,27 +74,36 @@ public class EmpleadoController {
 	@PostMapping("/listEmpleados/addEmpleado")
 	public String addEmpleado(@ModelAttribute("empleado") UsuarioModel usuarioModel, RedirectAttributes flash) {
 		if(usuarioService.findUsuario(usuarioModel.getId()) == null) {
-			try {
-			usuarioModel.setRol("ROL_EMPLEADO");
-			usuarioModel.setPassword(passwordEncoder.encode(usuarioModel.getPassword()));
-			usuarioService.addUsuario(usuarioModel);
-			flash.addFlashAttribute("success", "Empleado creado correctamente.");
-			}
-			catch (Exception SQLIntegrityConstraintViolationException) {
-				flash.addFlashAttribute("error", "Ese correo ya esta registrado.");
+			if(usuarioModel.getPassword().equals(usuarioModel.getC_password())) {
+				try {
+					usuarioModel.setRol("ROL_EMPLEADO");
+					usuarioModel.setPassword(passwordEncoder.encode(usuarioModel.getPassword()));
+					usuarioModel.setC_password(passwordEncoder.encode(usuarioModel.getC_password()));
+					usuarioService.addUsuario(usuarioModel);
+					flash.addFlashAttribute("success", "Empleado creado correctamente.");
+					}
+					catch (Exception SQLIntegrityConstraintViolationException) {
+						flash.addFlashAttribute("error", "Ese correo ya esta registrado.");
+						return "redirect:/inicio/listEmpleados/formEmpleado";
+					}
+			} else {
+				flash.addFlashAttribute("error", "Las contraseñas no coinciden.");
 				return "redirect:/inicio/listEmpleados/formEmpleado";
 			}
 		}
 		else {
 			if(usuarioModel.getPassword().equalsIgnoreCase("")) {
 				usuarioModel.setPassword(usuarioService.findUsuario(usuarioModel.getId()).getPassword());
+				usuarioModel.setC_password(usuarioService.findUsuario(usuarioModel.getId()).getC_password());
 				usuarioModel.setRol("ROL_EMPLEADO");
+				usuarioModel.setActivo(usuarioService.findUsuario(usuarioModel.getId()).getActivo());
 				usuarioService.addUsuario(usuarioModel);
 				flash.addFlashAttribute("success", "Empleado editado correctamente.");
 			}
 			else {
 				usuarioModel.setRol("ROL_EMPLEADO");
 				usuarioModel.setPassword(passwordEncoder.encode(usuarioModel.getPassword()));
+				usuarioModel.setC_password(passwordEncoder.encode(usuarioModel.getC_password()));
 				usuarioService.addUsuario(usuarioModel);
 				flash.addFlashAttribute("success", "Empleado editado correctamente.");
 			}

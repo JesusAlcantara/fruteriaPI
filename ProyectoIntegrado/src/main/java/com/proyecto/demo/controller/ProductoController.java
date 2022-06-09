@@ -144,22 +144,17 @@ public class ProductoController {
 			}
 		}
 		else {
-			String nombreImagen = upload.saveImage(file);
-			productoModel.setFoto(nombreImagen);
-			if(file.isEmpty()) {
-				ProductoModel p = new ProductoModel();
-				p = productoService.findProducto(productoModel.getId());
-				productoModel.setFoto(p.getFoto());
+			if(productoModel.getFoto().equalsIgnoreCase("")) {
+				productoModel.setFoto(productoService.findProducto(productoModel.getId()).getFoto());
+				productoService.addProducto(productoModel);
+				flash.addFlashAttribute("success", "Producto editado correctamente.");
 			}
-			
-			if(!productoModel.getFoto().equals("default.jpg")) {
-				upload.deleteImage(productoModel.getFoto());
+			else {
+				productoModel.setFoto(productoModel.getFoto());
+				productoService.addProducto(productoModel);
+				flash.addFlashAttribute("success", "Producto editado correctamente.");
 			}
-			productoService.addProducto(productoModel);
-			flash.addFlashAttribute("success", "Producto editado correctamente.");
-		}
-		
-		
+		}	
 		return "redirect:/inicio/listProductosEmpleado";
 	}
 }

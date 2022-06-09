@@ -2,6 +2,8 @@ package com.proyecto.demo.controller;
 
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -11,13 +13,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.proyecto.demo.entity.Usuario;
+import com.proyecto.demo.model.ProductoModel;
 import com.proyecto.demo.model.UsuarioModel;
+import com.proyecto.demo.service.Impl.ProductoServiceImpl;
 import com.proyecto.demo.service.Impl.UsuarioServiceImpl;
 
 @Controller
@@ -26,6 +29,12 @@ public class LoginController {
 	@Autowired
 	@Qualifier("usuarioService")
 	private UsuarioServiceImpl usuarioService;
+	
+	@Autowired
+	@Qualifier("productoService")
+	private ProductoServiceImpl productoService;
+	
+	private static final String INICIO_VIEW = "inicio";
 
 
 	@GetMapping("/auth/login")
@@ -46,17 +55,22 @@ public class LoginController {
 	@PostMapping("/auth/register")
 	public String register(@ModelAttribute Usuario usuario, RedirectAttributes flash) {
 		try {
-		if(usuarioService.findUsuario(usuario.getId())==null) {
-			usuarioService.registrar(usuario);
-			flash.addFlashAttribute("success", "Usuario registrado satisfactoriamente");
-			return "redirect:/auth/login";
+			if(usuarioService.findUsuario(usuario.getId())==null) {
+				if(usuario.getPassword().equals(usuario.getC_password())) {
+					usuarioService.registrar(usuario);
+					flash.addFlashAttribute("success", "Usuario registrado satisfactoriamente");
+					return "redirect:/auth/login";
+					}
+				} else {
+					flash.addFlashAttribute("error","Las contraseñas no coinciden.");
+					return "redirect:/auth/registerForm";
+				}
 			}
-		}
-		catch (Exception e) {
-			flash.addFlashAttribute("error", "Ese correo ya esta registrado");
-			return "redirect:/auth/registerForm";
-		}
-		return null;
+			catch (Exception e) {
+				flash.addFlashAttribute("error", "Ese correo ya esta registrado");
+				return "redirect:/auth/registerForm";
+			}
+			return null;
 		
 	}
 	
@@ -88,8 +102,11 @@ public class LoginController {
 	}
 	
 	@GetMapping("/")
-	public String barra() {
-		return "inicio";
+	public ModelAndView inicioCliente() {
+		ModelAndView mav = new ModelAndView(INICIO_VIEW);
+		List<ProductoModel> productos = productoService.listAllProductos();
+		mav.addObject("productos", productos);
+		return mav;
 	}
 	
 }
