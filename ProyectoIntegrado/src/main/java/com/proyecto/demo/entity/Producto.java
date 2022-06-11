@@ -1,11 +1,17 @@
 package com.proyecto.demo.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "producto")
 public class Producto {
@@ -26,9 +32,9 @@ public class Producto {
 	@JoinColumn(name="empleado", referencedColumnName = "id")
 	private Usuario usuario;
 	
-	@ManyToOne
-	@JoinColumn(name="idPedido")
-	private Pedido pedido;
+	@JsonIgnore
+	@ManyToMany(mappedBy = "productos")
+	private List<Pedido> pedidos = new ArrayList<>();
 	
 	private String foto;
 	
@@ -36,13 +42,13 @@ public class Producto {
 
 	public Producto() {}
 	
-	public Producto(long id, String nombre, float precio, Categoria categoria, Usuario usuario, Pedido pedido, String foto, int cantidad) {
+	public Producto(long id, String nombre, float precio, Categoria categoria, Usuario usuario, List<Pedido> pedidos, String foto, int cantidad) {
 		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
 		this.categoria = categoria;
 		this.usuario = usuario;
-		this.pedido = pedido;
+		this.pedidos = pedidos;
 		this.foto = foto;
 		this.cantidad = cantidad;
 	}
@@ -87,13 +93,6 @@ public class Producto {
 		this.usuario = usuario;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
 
 	public String getFoto() {
 		return foto;
@@ -101,6 +100,14 @@ public class Producto {
 
 	public void setFoto(String foto) {
 		this.foto = foto;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	public int getCantidad() {

@@ -9,10 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity(name = "pedido")
@@ -26,7 +28,13 @@ public class Pedido {
 	@JoinColumn(name="usuario")
 	private Usuario usuario;
 	
-	@OneToMany(mappedBy = "pedido", orphanRemoval = true)
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(
+			name = "pedidos_productos",
+			joinColumns = @JoinColumn(name = "pedido_id"),
+			inverseJoinColumns = @JoinColumn(name = "producto_id")
+	)
 	private List<Producto> productos = new ArrayList<>();
 	
 	@JsonFormat(pattern = "ddMMyyyy")
@@ -37,6 +45,8 @@ public class Pedido {
 	
 	private String direccion;
 	
+	private int pos_domicilio;
+	
 	private String valoracion;
 	
 	private float precioTotal;
@@ -46,7 +56,7 @@ public class Pedido {
 	public Pedido() {}
 
 	public Pedido(long id, Usuario usuario, List<Producto> productos, Date fecha_pedido,
-			Date fecha_entrega, String valoracion, String direccion, float precioTotal, int entrega) {
+			Date fecha_entrega, String valoracion, String direccion, int pos_domicilio, float precioTotal, int entrega) {
 		this.id = id;
 		this.usuario = usuario;
 		this.productos = productos;
@@ -54,6 +64,7 @@ public class Pedido {
 		this.fecha_entrega = fecha_entrega;
 		this.valoracion = valoracion;
 		this.direccion = direccion;
+		this.pos_domicilio = pos_domicilio;
 		this.precioTotal = precioTotal;
 		this.entrega = entrega;
 	}
@@ -112,6 +123,14 @@ public class Pedido {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+
+	public int getPos_domicilio() {
+		return pos_domicilio;
+	}
+
+	public void setPos_domicilio(int pos_domicilio) {
+		this.pos_domicilio = pos_domicilio;
 	}
 
 	public float getPrecioTotal() {

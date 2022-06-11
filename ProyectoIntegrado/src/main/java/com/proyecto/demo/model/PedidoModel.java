@@ -15,13 +15,14 @@ public class PedidoModel {
 	private Date fecha_entrega;
 	private String valoracion;
 	private String direccion;
+	private int pos_domicilio;
 	private float precioTotal;
 	private int entrega;
 	
 	public PedidoModel() {}
 	
 	public PedidoModel(long id, Usuario usuario, List<Producto> productos, Date fecha_pedido,
-			Date fecha_entrega, String valoracion, String direccion, float precioTotal, int entrega) {
+			Date fecha_entrega, String valoracion, String direccion, int pos_domicilio, float precioTotal, int entrega) {
 		this.id = id;
 		this.usuario = usuario;
 		this.productos = productos;
@@ -29,6 +30,7 @@ public class PedidoModel {
 		this.fecha_entrega = fecha_entrega;
 		this.valoracion = valoracion;
 		this.direccion = direccion;
+		this.pos_domicilio = pos_domicilio;		
 		this.precioTotal = precioTotal;
 		this.entrega = entrega;
 	}
@@ -87,6 +89,14 @@ public class PedidoModel {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+
+	public int getPos_domicilio() {
+		return pos_domicilio;
+	}
+
+	public void setPos_domicilio(int pos_domicilio) {
+		this.pos_domicilio = pos_domicilio;
 	}
 
 	public float getPrecioTotal() {

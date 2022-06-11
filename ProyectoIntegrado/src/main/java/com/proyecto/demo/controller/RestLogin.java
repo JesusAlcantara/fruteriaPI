@@ -36,7 +36,15 @@ public class RestLogin {
 	
 	@PostMapping("/login")
 	public UsuarioModel login(@RequestParam(value = "email") String email, @RequestParam(value = "password") String password) {
-		com.proyecto.demo.entity.Usuario usuario = usuarioService.transform(usuarioService.findUsuarioByEmail(email));
+		System.out.println(password);
+		Authentication authentication = 
+				authenticationManager.authenticate(
+						new UsernamePasswordAuthenticationToken(email,password));
+		
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		String token = getJWTToken(email);
+		com.proyecto.demo.entity.Usuario usuario = usuarioService.transform(usuarioService.findUsuarioByEmailAndPassword(email, password));
+		usuario.setToken(token);
 		return usuarioService.transform(usuario);
 	}
 	

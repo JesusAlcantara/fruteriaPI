@@ -108,12 +108,20 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 		ArrayList<UsuarioModel> usuarios2=new ArrayList<>();
 		usuarios.forEach(usuario-> usuarios2.add(modelMapper.map(usuario, UsuarioModel.class)));
 		return usuarios2;
-		
 	}
 	
 	public UsuarioModel findUsuarioByEmailAndPassword(String email, String password) {
-		com.proyecto.demo.entity.Usuario usuario = usuarioRepository.findByEmailAndPassword(email, password);
-		return transform(usuario);
+		com.proyecto.demo.entity.Usuario usuario = usuarioRepository.findByEmail(email);
+		String contra = usuario.getPassword();
+		System.out.println(contra);
+		System.out.println(password);
+		if(passwordEncoder.matches(password, contra)) {
+			System.out.println("Correcto");
+			return transform(usuario);
+		} else {
+			System.out.println("Error");
+			return null;
+		}
 	}
 	
 	/*

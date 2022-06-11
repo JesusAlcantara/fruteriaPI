@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.demo.model.ProductoModel;
 import com.proyecto.demo.service.Impl.ProductoServiceImpl;
+import com.proyecto.demo.service.Impl.UsuarioServiceImpl;
 
 @RestController
 @RequestMapping("/api")
@@ -20,6 +21,10 @@ public class RestProductosController {
 	@Autowired
 	@Qualifier("productoService")
 	private ProductoServiceImpl productoService;	
+	
+	@Autowired
+	@Qualifier("usuarioService")
+	private UsuarioServiceImpl usuarioService;
 	
 	@GetMapping("/listProductos")
 	public ResponseEntity<?> listarProductos() {
