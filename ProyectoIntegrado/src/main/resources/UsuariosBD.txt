@@ -1,0 +1,32 @@
+Admin:
+
+- usaurio: admin@admin.com
+- password: administrador
+
+Empleados:
+
+- usuario: jesus@gmail.com (dado de alta)
+- password: 123456789
+
+- usuario: miguelito@gmail.com (dado de alta)
+- password: 123456789
+
+- usuario: pablo@gmail.com (dado de baja)
+- password: 123456789
+
+Clientes:
+
+- usuario: jesusalcantaragomez11@gmail.com (dado de alta)
+- password: 123456789
+
+- usuario: luisa@gmail.com (dado de baja)
+- password: 123456789
+
+- usuario: michelle@gmail.com (dado de baja)
+- password: 123456789
+
+- usuario: juan@gmail.com (dado de alta)
+- password: 123456789
+
+- usuario: luissantos@gmail.com (dado de alta)
+- password: 123456789

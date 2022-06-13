@@ -37,15 +37,14 @@ public class RestPedido {
 	
 	@PostMapping("/pedido")
 	public PedidoModel nuevoPedido(@RequestParam String formateo, @RequestParam long id, @RequestParam Date fecha_pedido,
-			@RequestParam float precio_total/*,
-			@RequestParam Date fecha_entrega, @RequestParam String direccion,
+			@RequestParam float precio_total, @RequestParam String direccion/*,
+			@RequestParam Date fecha_entrega, 
 			@RequestParam int pos_domicilio*/) {
 		String[] parts = formateo.split("\\.");
 		com.proyecto.demo.entity.Pedido pedido = new com.proyecto.demo.entity.Pedido();
 		List<Producto> productos = new ArrayList<>();
 		/*
 		pedido.setPrecioTotal(precio_total);
-		pedido.setDireccion(direccion);
 		pedido.setPos_domicilio(pos_domicilio);*/
 		for (int i = 0; i < parts.length; i++) {
 			com.proyecto.demo.entity.Producto p = productoService.transform(productoService.findProducto(Integer.parseInt(parts[i])));
@@ -55,6 +54,7 @@ public class RestPedido {
 		pedido.setUsuario(usuarioService.transform(usuarioService.findUsuario(id)));
 		pedido.setProductos(productos);
 		pedido.setPrecioTotal(precio_total);
+		pedido.setDireccion(direccion);
 		pedido.setFecha_pedido(fecha_pedido);
 		return pedidoService.transform(pedidoService.addPedido(pedidoService.transform(pedido)));
 	}
