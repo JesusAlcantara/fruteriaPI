@@ -35,7 +35,7 @@ public class PedidoController {
 		return mav;
 	}
 	
-	// Dar de baja a un empleado
+	// Confirmar entrega de un pedido
 	@PreAuthorize("hasAuthority('ROL_ADMIN')")
 	@GetMapping("/verPedidos/confirmar/{id}")
 	public String confirmarEntrega(@PathVariable long id, RedirectAttributes flash) {

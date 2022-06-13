@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.demo.entity.Usuario;
+import com.proyecto.demo.model.PedidoModel;
 import com.proyecto.demo.model.UsuarioModel;
 import com.proyecto.demo.repository.UsuarioRepository;
 import com.proyecto.demo.service.UsuarioService;

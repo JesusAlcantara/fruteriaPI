@@ -1,6 +1,7 @@
 package com.proyecto.demo.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +36,14 @@ public class RestPedido {
 	private UsuarioServiceImpl usuarioService;
 	
 	@PostMapping("/pedido")
-	public PedidoModel nuevoPedido(@RequestParam String formateo, @RequestParam long id/*,
+	public PedidoModel nuevoPedido(@RequestParam String formateo, @RequestParam long id, @RequestParam Date fecha_pedido,
+			@RequestParam float precio_total/*,
 			@RequestParam Date fecha_entrega, @RequestParam String direccion,
-			@RequestParam int pos_domicilio, @RequestParam float precio_total*/) {
+			@RequestParam int pos_domicilio*/) {
 		String[] parts = formateo.split("\\.");
 		com.proyecto.demo.entity.Pedido pedido = new com.proyecto.demo.entity.Pedido();
 		List<Producto> productos = new ArrayList<>();
-		/*pedido.setFecha_entrega(fecha_entrega);
+		/*
 		pedido.setPrecioTotal(precio_total);
 		pedido.setDireccion(direccion);
 		pedido.setPos_domicilio(pos_domicilio);*/
@@ -52,6 +54,8 @@ public class RestPedido {
 		}
 		pedido.setUsuario(usuarioService.transform(usuarioService.findUsuario(id)));
 		pedido.setProductos(productos);
+		pedido.setPrecioTotal(precio_total);
+		pedido.setFecha_pedido(fecha_pedido);
 		return pedidoService.transform(pedidoService.addPedido(pedidoService.transform(pedido)));
 	}
 	

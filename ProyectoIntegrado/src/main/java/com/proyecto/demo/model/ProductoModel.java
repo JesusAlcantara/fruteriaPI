@@ -1,5 +1,8 @@
 package com.proyecto.demo.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.proyecto.demo.entity.Categoria;
 import com.proyecto.demo.entity.Pedido;
 import com.proyecto.demo.entity.Usuario;
@@ -12,17 +15,19 @@ public class ProductoModel {
 	private Categoria categoria;
 	private Usuario usuario;
 	private String foto;
+	private List<Pedido> pedidos = new ArrayList<>();
 	private int cantidad;
 	
 	public ProductoModel() {}
 	
-	public ProductoModel(long id, String nombre, float precio, Categoria categoria, Usuario usuario, String foto, int cantidad) {
+	public ProductoModel(long id, String nombre, float precio, Categoria categoria, Usuario usuario, String foto, List<Pedido> pedidos, int cantidad) {
 		this.id = id;
 		this.nombre = nombre;
 		this.precio = precio;
 		this.categoria = categoria;
 		this.usuario = usuario;
 		this.foto = foto;
+		this.pedidos = pedidos;
 		this.cantidad = cantidad;
 	}
 
@@ -80,6 +85,14 @@ public class ProductoModel {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 
 	@Override

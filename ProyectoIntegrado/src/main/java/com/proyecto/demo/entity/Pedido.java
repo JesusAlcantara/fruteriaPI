@@ -28,13 +28,7 @@ public class Pedido {
 	@JoinColumn(name="usuario")
 	private Usuario usuario;
 	
-	@JsonIgnore
 	@ManyToMany
-	@JoinTable(
-			name = "pedidos_productos",
-			joinColumns = @JoinColumn(name = "pedido_id"),
-			inverseJoinColumns = @JoinColumn(name = "producto_id")
-	)
 	private List<Producto> productos = new ArrayList<>();
 	
 	@JsonFormat(pattern = "ddMMyyyy")
@@ -49,14 +43,14 @@ public class Pedido {
 	
 	private String valoracion;
 	
-	private float precioTotal;
+	private float precio_total;
 	
 	private int entrega;
 	
 	public Pedido() {}
 
 	public Pedido(long id, Usuario usuario, List<Producto> productos, Date fecha_pedido,
-			Date fecha_entrega, String valoracion, String direccion, int pos_domicilio, float precioTotal, int entrega) {
+			Date fecha_entrega, String valoracion, String direccion, int pos_domicilio, float precio_total, int entrega) {
 		this.id = id;
 		this.usuario = usuario;
 		this.productos = productos;
@@ -65,7 +59,7 @@ public class Pedido {
 		this.valoracion = valoracion;
 		this.direccion = direccion;
 		this.pos_domicilio = pos_domicilio;
-		this.precioTotal = precioTotal;
+		this.precio_total = precio_total;
 		this.entrega = entrega;
 	}
 
@@ -134,11 +128,11 @@ public class Pedido {
 	}
 
 	public float getPrecioTotal() {
-		return precioTotal;
+		return precio_total;
 	}
 
-	public void setPrecioTotal(float precioTotal) {
-		this.precioTotal = precioTotal;
+	public void setPrecioTotal(float precio_total) {
+		this.precio_total = precio_total;
 	}
 
 	public int getEntrega() {

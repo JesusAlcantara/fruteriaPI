@@ -11,7 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name = "producto")
 public class Producto {
@@ -32,8 +33,7 @@ public class Producto {
 	@JoinColumn(name="empleado", referencedColumnName = "id")
 	private Usuario usuario;
 	
-	@JsonIgnore
-	@ManyToMany(mappedBy = "productos")
+	@ManyToMany
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	private String foto;

@@ -58,8 +58,8 @@ public class PedidoServiceImpl implements PedidoService{
 	}
 	
 	public ArrayList<PedidoModel> findByUsuario(long id) {
-		//UsuarioModel usuario = usuarioService.findUsuario(id);
-		ArrayList <com.proyecto.demo.entity.Pedido> pedidos = pedidoRepository.findByUsuario(id);
+		UsuarioModel usuario = usuarioService.findUsuario(id);
+		ArrayList <com.proyecto.demo.entity.Pedido> pedidos = pedidoRepository.findByUsuario(usuarioService.transform(usuario));
 		ModelMapper modelMapper = new ModelMapper();
 		ArrayList<PedidoModel> pedidos2=new ArrayList<>();
 		pedidos.forEach(pedido -> pedidos2.add(modelMapper.map(pedido, PedidoModel.class)));
