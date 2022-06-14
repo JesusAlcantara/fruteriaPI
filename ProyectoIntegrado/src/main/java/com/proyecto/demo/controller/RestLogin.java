@@ -13,10 +13,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.proyecto.demo.entity.Usuario;
 import com.proyecto.demo.model.UsuarioModel;
 import com.proyecto.demo.service.Impl.UsuarioServiceImpl;
 
@@ -67,4 +69,14 @@ public class RestLogin {
 						secretKey.getBytes()).compact();
 		return "Bearer " + token;
 	}
+	
+	@PostMapping("/registrar")
+	public Usuario registrar(@RequestBody UsuarioModel usuario) {
+		usuario.setActivo(0);
+		usuario.setRol("ROL_CLIENTE");
+		usuario.setPedidos(null);
+		usuario.setToken(null);
+		return usuarioService.registrar(usuarioService.transform(usuario));
+	}
+	
 }

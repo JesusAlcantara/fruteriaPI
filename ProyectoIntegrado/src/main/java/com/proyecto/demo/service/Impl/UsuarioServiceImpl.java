@@ -79,6 +79,7 @@ public class UsuarioServiceImpl implements UsuarioService, UserDetailsService {
 	
 	public com.proyecto.demo.entity.Usuario registrar(com.proyecto.demo.entity.Usuario usuario) {
 		usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+		usuario.setC_password(passwordEncoder.encode(usuario.getC_password()));;
 		usuario.setRol("ROL_CLIENTE");
 		return usuarioRepository.save(usuario);
 	}
