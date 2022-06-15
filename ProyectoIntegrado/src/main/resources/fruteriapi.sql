@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-06-2022 a las 19:15:10
+-- Tiempo de generación: 15-06-2022 a las 21:00:47
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 7.4.26
 
@@ -38,8 +38,8 @@ CREATE TABLE `categoria` (
 --
 
 INSERT INTO `categoria` (`id`, `nombre`, `descripcion`) VALUES
-(2, 'Verduras', 'Descripción de la categoría \'Verduras\'.'),
 (1, 'Frutas', 'Descripción de la categoría \'Frutas\'.'),
+(130, 'Verduras', 'Descripción de la categoría \'Verduras\''),
 (29, 'Bebidas', 'Descripción de la categoría \'Bebidas\'.'),
 (40, 'Otros', 'Descripción de la categoría \'Otros\'.');
 
@@ -58,7 +58,7 @@ CREATE TABLE `hibernate_sequence` (
 --
 
 INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-(129);
+(131);
 
 -- --------------------------------------------------------
 
@@ -112,13 +112,13 @@ CREATE TABLE `producto` (
 
 INSERT INTO `producto` (`id`, `cantidad`, `foto`, `nombre`, `precio`, `categoria`, `id_pedido`, `empleado`) VALUES
 (38, 6, 'cocacola.png', 'Coca-Cola', 1.7, 29, NULL, 43),
-(39, 15, 'tomatepera.png', 'Tomate Pera', 1.49, 2, NULL, 43),
+(39, 15, 'tomatepera.png', 'Tomate Pera', 1.49, 130, NULL, 43),
 (41, 10, 'huevosdocena.png', 'Docena de Huevos XL', 2.3, 40, NULL, 43),
-(45, 20, 'patatas.png', 'Patata Freír', 0.89, 2, NULL, 49),
+(45, 20, 'patatas.png', 'Patata Freír', 0.89, 130, NULL, 49),
 (46, 12, 'cerezas.png', 'Cerezas', 6.3, 1, NULL, 49),
 (50, 12, 'mandarina.png', 'Mandarina', 1.79, 1, NULL, 49),
 (68, 12, 'kiwizespri.png', 'Kiwi Zespri', 4.99, 1, NULL, 49),
-(128, 20, 'patatacocer.jpg', 'Patata Cocer', 0.89, 2, NULL, 49);
+(128, 20, 'patatacocer.jpg', 'Patata Cocer', 0.89, 130, NULL, 49);
 
 -- --------------------------------------------------------
 
